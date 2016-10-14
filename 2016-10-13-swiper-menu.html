@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, 
+        	maximum-scale=1, user-scalable=no">
+		<title>仿淘宝实现菜单栏左右滑动以及vue实现数据刷新</title>
+		<link href="css/common.css" rel="stylesheet"/>
+		<link href="plugins/swiper/swiper-3.3.1.min.css" rel="stylesheet"/>
+		<style>
+		   html,body,#ohomeTech{
+		   		width:100%;
+		   		height:100%;
+		   }
+			#ohomeTech>section{
+				height:100%;
+			    margin:0.625rem 0;
+			    background-color:#fff;
+			    padding-top:3.125rem;
+			    padding-bottom:3.125rem;
+			}
+			#ohomeTech>section>hgroup{
+			    color:#333333;
+			    font-size:1.4375rem;
+			
+			}
+			#ohomeTech>section>hgroup .square-decoration{
+			    position:relative;
+			    margin-bottom: 1.2rem;
+			}
+			#ohomeTech>section>hgroup .square-decoration:before,
+			#ohomeTech>section>hgroup .square-decoration:after{
+			    position:absolute;
+			    content:"";
+			    background:#333;
+			    color:#333;
+			    left:50%;
+			    -webkit-transform:translate(-50%,0);
+			    -moz-transform:translate(-50%,0);
+			    -o-transform:translate(-50%,0);
+			    -ms-transform:translate(-50%,0);
+			    transform:translate(-50%,0);
+			    bottom: -0.6rem;
+			
+			}
+			#ohomeTech>section>hgroup .square-decoration:before{
+			    width:50%;
+			    height:0.0625rem;
+			    top: 136%;
+			    color:#949494;
+			    background-color:#949494;
+			
+			}
+			#ohomeTech>section>hgroup .square-decoration:after{
+			    width:0.625rem;
+			    height:0.625rem;
+			    top:120%;
+			    -webkit-transform:rotate(-45deg);
+			    -moz-transform:rotate(-45deg);
+			    -o-transform:rotate(-45deg);
+			    -ms-transform:rotate(-45deg);
+			    transform:rotate(-45deg);
+			}
+			#ohomeTech>section>hgroup p{
+			    margin-bottom:2rem;
+			    line-height:1.5;
+			    font-size:0.75rem;
+			    color:#939393;
+			}
+			#ohomeTech section:not(:nth-child(1)) hgroup{
+			    padding:0 0.625rem;
+			}
+			#ohomeTech .model-orders-area hgroup h2 b{
+			    font-weight:normal;
+			    color:#efce16;
+			}
+			#ohomeTech .model-orders-area .model-orders-nav-wrapper{
+			    position:relative;
+			    left:0;
+			    width:100%;
+			    height:3.75rem;
+			    line-height:3.75rem;
+			    background-color:#FF7F00;
+			    color:#fff;
+			}
+			#ohomeTech .model-orders-area .model-orders-nav-wrapper .model-nav-active-area{
+			    position:absolute;
+			    left:35%;
+			    right:35%;
+			    top:0;
+			    bottom:0;
+			    background-color:#FF9935;
+			    z-index:18;
+			}
+			#ohomeTech .model-orders-area .model-orders-nav{
+			    position: relative;
+			    z-index: 19;
+			    height: 100%;
+			
+			}
+			#ohomeTech .model-orders-area .model-orders-nav li{
+			    display:inline-block;
+			    width:7.5rem;
+			    height:100%;
+			    text-align: center;
+			
+			}
+			#ohomeTech .model-orders-menus{
+			   padding:0 1.25rem 1.25rem;
+			   height:15.0rem;
+			   overflow-y:scroll;
+			}
+			#ohomeTech .model-orders-menus li{
+			    padding:1.25rem 0 0.25rem;
+			    color:#575959;
+			    border-bottom:1px dashed #A0A0A0;
+			}
+			#ohomeTech .model-orders-menus li i{
+			    display:inline-block;
+			    width:1.25rem;
+			    height:1.25rem;
+			    text-align:center;
+			    line-height:1.25rem;
+			    color:#fff;
+			    font-style:normal;
+			    border-radius:50%;
+			    background-color:#A1A1A1;
+			}
+			#ohomeTech .model-orders-area img{
+			    width:100%;
+			    height:auto;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="ohomeTech">
+			<section class="model-orders-area"><!--6大模块9道工序-->
+		        <hgroup>
+		            <h2 align="center" >
+		                <b>6</b>大模块化施工体系
+		            </h2>
+		            <h2 align="center" class="square-decoration">
+		               <b>90</b>道标准工序</h2>
+		            <p align="center" >橙家通过建立工业流水线模块化施工体系，标准化各模块下的施工工序，让施工质量和监理验收落实到每一环</p>
+		        </hgroup>
+		        <div>
+		            <nav class="model-orders-nav-wrapper clearfix swiper-container">
+		                <ul class="model-orders-nav swiper-wrapper" ><!--导航栏-->
+		                    <li class="swiper-slide" data-num="{{item.index}}" v-for="item in modelData">
+		                        <a>{{item.type}}</a>
+		                    </li>
+		                </ul>
+		                <div class="model-nav-active-area"></div>
+		            </nav>
+		
+		            <img :src="modelDataActive.img"/>
+		            <ul class="model-orders-menus" >
+		                <li v-for="item in modelDataActive.orders">
+		                    <i>{{$index+1}}</i>
+		                    <span>{{item}}</span>
+		                </li>
+		            </ul>
+		        </div>
+	    	</section>
+		</div>
+	</body>
+	<script src="js/vue/vue.js"></script>
+	<script src="js/jquery/jquery-1.9.1.min.js"></script>
+	<script src="js/zepto/zepto.js"></script>
+	<script src="js/zepto/touch.js"></script>
+	<script src="plugins/swiper/swiper-3.3.1.min.js"></script>
+	<script>
+	  
+		$.get("data/craft.json",function(data){
+		   
+        var vue1=new Vue({
+            el:"#ohomeTech",
+            data:{
+                modelData:data.modelResults,
+                goodErrorData:data.goodAndErrorResults,
+                modelDataActive:{},
+                goodErrorDataActive:{}
+            },
+            created:function(){
+                this.modelDataActive = this.modelData[0];
+            },
+            ready: function () {
+                //获取本地数据（6大模块以及精准工艺）
+                /*6大模块，90道工序左右滑动导航栏*/
+                var mySwiper1 = new Swiper('.model-orders-nav-wrapper', {
+
+                    slidesPerView: "auto", /*设置slider容器能够同时显示的slides数量(carousel模式)。可以设置为number或者 'auto'则自动根据slides的宽度来设定数量。*/
+                    freeMode: false, /*自动贴合*/
+                    freeModeSticky: true, /*自动贴合。*/
+                    centeredSlides: true, /*设定为true时，活动块会居中，而不是默认状态下的居。*/
+                    slideToClickedSlide: true, /*设置为true则swiping时点击slide会过渡到这个slide。*/
+                    onInit: function (swiper) { /*回调函数，初始化后执行。*/
+
+                    },
+
+                    onSlideChangeStart: function (swiper) {
+
+                    },
+                    onSlideChangeEnd: function (swiper) {
+                        //获取active的索引值
+                        var activeIndex=mySwiper1.activeIndex;
+                        vue1.modelDataActive=vue1.modelData[activeIndex];
+
+                     
+                    }
+
+                });
+                
+            }
+        });
+        
+       
+
+
+    });
+
+	</script>
+</html>

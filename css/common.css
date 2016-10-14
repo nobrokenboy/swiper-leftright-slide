@@ -1,0 +1,113 @@
+			/*默认初始化*/
+			body,div,ol,ul,li,dl,dt,dd,th,td,h1,h2,h3,h4,h5,h6,blockquote,p,pre,code,form,fieldset,legend,button,input,select,textarea,img{margin:0; padding:0;}
+			article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary{margin:0; padding:0;}  /*HTML5*/
+			body{font-family:"Microsoft YaHei"; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+			input,textarea,keygen,section,button{font-family:"Microsoft YaHei";}
+			*{box-sizing: border-box;-webkit-box-sizing: border-box;}
+			img{border:none;}
+			menu,ol,ul,li,dl{list-style:none;}
+			button,input,select,textarea{outline:none;}
+			h1,h2,h3,h4,h5,h6{font-weight:normal; font-size:100%;}
+			a,a:hover,a:active{text-decoration:none;cursor: pointer;outline: none;transition: color .3s ease-in-out;-webkit-transition: color .3s ease-in-out;}
+			/*a:visited{color: inherit;}*/
+			.pull-left{float:left;}
+			.pull-right{float:right;}
+			.clear{clear:both; overflow:hidden; height:0; font-size:0;}
+			.clearfix{*zoom:1;}
+			.clearfix:after{display:block; visibility:hidden; clear:both; height:0; font-size:0; content:"";}
+			.relative{position:relative;}
+			.absolute{position:absolute;}
+			.fixed{position:fixed;}
+			.pull-center{margin:0 auto;}
+			.text-left{text-align:left;}
+			.text-center{text-align:center;}
+			.text-right{text-align:right;}
+			.text-justify{text-align:justify;}
+			.vertical-top{vertical-align: top;}
+			.rock-line {width: 100%;height: 20px;}
+			.bg-grey { background-color: #e6e6e6;}
+			.bg-deep-black{background-color: #111111;}
+			.bg-white{background-color: #FFFFFF;}
+			.bg-deep-grey{background-color: #d0d1d1;}
+			.height-214{ height:214px;}
+			@media (min-width: 320px) {
+			    html {
+			        font-size: 100%; } }
+			@media (min-width: 360px) {
+			    html {
+			        font-size: 112.5%; } }
+			@media (min-width: 384px) {
+			    html {
+			        font-size: 120%; } }
+			@media (min-width: 400px) {
+			    html {
+			        font-size: 125%; } }
+			@media (min-width: 540px) {
+			    html {
+			        font-size: 168.75%; } }
+			@media (min-width: 600px) {
+			    html {
+			        font-size: 187.5%; } }
+			@media (min-width: 640px) {
+			    html {
+			        font-size: 200%; } }
+			@media (min-width: 720px) {
+			    html {
+			        font-size: 225%; } }
+			@media (min-width: 768px) {
+			    html {
+			        font-size: 100%; } }
+			html {
+			    font-size: calc(100vw / 384 * 16); }
+			.f10{
+			    font-size:0.625rem;
+			}
+			.f11{
+			    font-size:0.6875rem;
+			}
+			.f12{
+			    font-size:0.75rem;
+			}
+			.f13{
+			    font-size:0.8125rem;
+			}
+			.f14{
+			    font-size:0.875rem;
+			}
+			.f15{
+			    font-size:0.9375rem;
+			}
+			.f16{
+			    font-size:1rem;
+			}
+			.f17{
+			    font-size:1.0625rem;
+			}
+			.f18{
+			    font-size:1.125rem;
+			}
+			.f19{
+			    font-size:1.1875rem;
+			}
+			.f20{
+			    font-size:1.25rem;
+			}
+			.f22{
+			    font-size:1.375rem;
+			}
+			.f24{
+			    font-size:1.5rem;
+			}
+			.f26{
+			    font-size:1.625rem;
+			}
+			.f28{
+			    font-size:1.75rem;
+			}
+			.f32{
+			    font-size:2rem;
+			}
+			.f36{
+			    font-size:2.25rem;
+			}
+			
