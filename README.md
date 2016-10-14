@@ -5,7 +5,6 @@
 ###关键核心代码
 <pre><code>
      var mySwiper1 = new Swiper('.model-orders-nav-wrapper', {
-
               slidesPerView: "auto", /*设置slider容器能够同时显示的slides数量(carousel模式)。可以设置为number或者 'auto'则自动根据slides的宽度来设定数量。*/
               freeMode: false, /*自动贴合*/
               freeModeSticky: true, /*自动贴合。*/
