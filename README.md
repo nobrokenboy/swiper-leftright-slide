@@ -29,6 +29,6 @@
 </pre></code>
 ###效果图：
 ![仿淘宝海淘网左右滑动菜单栏效果](https://github.com/nobrokenboy/swiper-leftright-slide/blob/master/slideleftRight.gif)
-###[戳我进入展示页面](https://github.com/nobrokenboy/swiper-leftright-slide/2016-10-13-swiper-menu.html)
+###[戳我进入展示页面](http://nobrokenboy.me/swiper-leftright-slide/2016-10-13-swiper-menu.html)
 
 
