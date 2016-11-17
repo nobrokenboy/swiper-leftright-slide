@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<link href="plugins/swiper/swiper-3.3.1.min.css" rel="stylesheet"/>
+		<style>
+			*{margin:0;padding:0;box-sizing:border-box;}
+			html,body{
+				width:100%;
+				height:100%;
+				font-family: "微软雅黑";
+			}
+			.clearfix{*zoom:1;}
+			.clearfix:after{display:block; visibility:hidden; clear:both; height:0; font-size:0; content:"";}
+			header{width:100%;height:40px;line-height:40px;text-align:center;background-color:#fff;color:#2B2B2B;border-bottom:1px solid #eee;}
+			.item-lists{width:100%;}
+			.item-lists>li{width:100%;height:40px;line-height:40px;padding:0 10px;border-bottom:1px solid #eee;}
+			.item-lists>li~li{}
+			.item-lists>li>div:nth-child(1){
+				width:50px;
+				float:left;
+			}
+			.item-lists>li>div:nth-child(2){
+				overflow:hidden;
+			}
+			.item-lists>li>div:nth-child(2) input{
+				border:none;
+				overflow:hidden;
+			}
+			.item-lists>li>div:nth-child(2) input:focus{
+				outline:none;
+			}
+			.item-lists>li>div:nth-child(2) .btn-arrow{
+				color:#C3C3C3;
+				width:20px;
+				float:right;
+				margin-right:20px;
+			}
+			.area-select-lists{
+				position:fixed;
+				bottom:0;
+				left:0;
+				width:100%;
+				height:200px;
+				overflow:hidden;
+				background-color:#fff;
+				border:1px solid #ccc;
+				border-radius:3px;
+				color:#C3C3C3;
+				font-size:16px;
+			}
+			.area-select-lists .select-list{
+				height:100%;
+			}
+			.area-select-lists .select-list>div{
+				position:relative;
+				float:left;
+				width:32%;
+				height:100%;
+				line-height:40px;
+				text-align:center;
+			}
+			.active-area{
+				position:absolute;
+				left:2px;
+				top:40%;
+				bottom:35%;
+				z-index:10;
+				width:99%;
+				height:40px;
+				line-height:40px;
+				border-top:1px solid #ccc;
+				border-bottom:1px solid #ccc;
+				
+			}
+			.area-select-lists .select-list>div~div{
+				margin-left:2%;
+			}
+			.area-select-lists .title{
+				color:#000;
+			}
+			.area-select-lists .area-header{
+				position:absolute;
+				top:0;
+				left:0;
+				z-index:2;
+				width:100%;
+				height:40px;
+				line-height:40px;
+				background-color:#fff;
+				border-bottom:1px solid #C4C3C3;
+			}
+			.area-select-lists .area-header>div{
+				height:40px;
+			}
+			.area-select-lists .select-area{
+				position:absolute;
+				left:0;
+				bottom:40px;
+				z-index:2;
+				width:100%;
+				height:40px;
+				line-height:40px;
+				
+			}
+			.area-select-lists .select-area>div{
+				border-top:1px solid #ccc;
+				border-bottom:1px solid #ccc;
+			}
+			.area-select-lists .area-lists{
+				position:relative;
+				width:100%;
+			}
+			.area-select-lists .area-lists>li{
+				list-style:none;
+				height:40px;
+				font-size:12px;
+				-webkit-transition:all .2s ease-in;
+				transition:all .2s ease-in;
+			}
+			.area-select-lists .area-lists>li.active{
+				color:#000000;
+				font-size:16px;
+			}
+			.swiper-container {
+		        margin-left: auto;
+		        margin-right: auto;
+		    }
+			.swiper-slide{
+				text-align: center;
+		        font-size: 14px;
+		        background: #fff;
+		        display: -webkit-box;
+		        display: -ms-flexbox;
+		        display: -webkit-flex;
+		        display: flex;
+		        -webkit-box-pack: center;
+		        -ms-flex-pack: center;
+		        -webkit-justify-content: center;
+		        justify-content: center;
+		        -webkit-box-align: center;
+		        -ms-flex-align: center;
+		        -webkit-align-items: center;
+		        align-items: center;
+				-webkit-transition:all .2s ease-in;
+				transition:all .2s ease-in;
+			}
+			.swiper-active{
+				font-size:24px;
+				color:#2b2b2b;
+			}
+			.animation{
+				-webkit-animation-duration:.2s;
+				animation-duration:.2s;
+				-webkit-animation-timing-function:ease-in;
+				animation-timing-function:ease-in;
+			}
+			.slideUp{
+				-webkit-animation-name:slideUp;
+				animation-name:slideUp;
+			}
+			.slideDown{
+				-webkit-animation-name:slideDown;
+				animation-name:slideDown;
+			}
+			/*.area-select-lists{
+				transform:translateY(100%);
+					-webkit-transform:translateY(100%);
+			}
+			*/
+			/*动画效果*/
+			@keyframes slideUp{
+				0%{
+					transform:translateY(-100%);
+					-webkit-transform:translateY(-100%);
+				}
+				100%{
+					transform:translateY(0);
+					-webkit-transform:translateY(0);
+				}
+			}
+			@-webkit-keyframes slideUp{
+				0%{
+					transform:translateY(-100%);
+					-webkit-transform:translateY(-100%);
+				}
+				100%{
+					transform:translateY(0);
+					-webkit-transform:translateY(0);
+				}
+			}
+			
+			@keyframes slideDown{
+				0%{
+					transform:translateY(100%);
+					-webkit-transform:translateY(100%);
+				}
+				100%{
+					transform:translateY(0);
+					-webkit-transform:translateY(0);
+				}
+			}
+			@-webkit-keyframes slideUp{
+				0%{
+					transform:translateY(100%);
+					-webkit-transform:translateY(100%);
+				}
+				100%{
+					transform:translateY(0);
+					-webkit-transform:translateY(0);
+				}
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div class="demo" id="Demo">
+			<header>demo</header>
+			<section>
+				<ul class="item-lists">
+					<li class="clearfix">
+						<div>地区</div>
+						<div class="clearfix">
+							<!--<input type="text" placeholder="请选择省市区" v-model="activeArea"/>-->
+							<span>{{activeArea}}</span>
+							<a class="btn-arrow">></a>
+						</div>
+					</li>
+				</ul>
+				<!--地区-->
+				<div class="area-select-lists animation" >
+					<!--header-->
+					<div class="select-list area-header">
+						<div v-on:click="undoEvent()">取消</div>
+						<div class="title">选择地区</div>
+						<div v-on:click="comfirmEvent()">确定</div>
+					</div>
+					<!--content-->
+					<div class="select-list area-content clearfix">
+						<!--省-->
+						<div class="swiper-container-1" id="provinces">
+							<ul class="area-lists">
+								<li v-for="r in regions" :data-value="r.region_name">{{r.region_name}}</li>
+							</ul>
+							<div class="active-area"></div>
+						</div>
+						<!--市-->
+						<div class="swiper-container-2" id="citys">
+							<ul class="area-lists">
+								<li v-for="c in citys" :data-value="c.region_name">{{c.region_name}}</li>
+							</ul>
+							<div class="active-area"></div>
+						</div>
+						<!--区-->
+						<div class="swiper-container-3" id="areas">
+							<ul class="area-lists">
+								<li v-for="a in areas" :data-value="a.region_name">{{a.region_name}}</li>
+							</ul>
+							<div class="active-area"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!--<footer></footer>-->
+		</div>
+	</body>
+	<script src="js/vue/vue.js"></script>
+	<script src="js/jquery/jquery-1.9.1.min.js"></script>
+	<script src="js/zepto/zepto.js"></script>
+	<script src="js/zepto/touch.js"></script>
+	<!--<script src="plugins/swiper/swiper-3.3.1.min.js"></script>-->
+	<script src="js/selector/sliderSelector.js"></script>
+	<script>
+	var provinces = {};
+	var citys = {};
+	var areas = {};
+	var contextUrl="http://test.o-home.com:8091";
+		$.ajax({
+			url:contextUrl+"/api/get_region.php?callback=ecsCallback",
+			type:"GET",
+			dataType:"jsonp",
+			success:function(res){
+			var vm = new Vue({
+			el:"#Demo",
+			data:{
+				regions:res,
+				citys:[],
+				areas:[],
+				activeProvincessIndex:0,
+				activeCitysIndex:0,
+				activeRegionsIndex:0,
+				selectProvince:"",
+				selectCity:"",
+				selectRegion:"",
+				activeArea:"请选择省市区"
+			},
+			ready:function(){
+				var self=this;
+				provinces = new selector({
+					el:'#provinces',
+					onInit:function(){
+						self.selectProvince = this.activeItem.itemName;
+						for(var i=0;i<self.regions.length;i++){
+							if(self.regions[i].region_name==this.activeItem.itemName){
+								self.citys = self.regions[i].citys;
+								self.$nextTick(function(){
+									citys = new selector({
+										el:"#citys",
+										onInit:function(){
+											self.selectCity = this.activeItem.itemName;
+											for(var i=0;i<self.citys.length;i++){
+												if(self.citys[i].region_name==this.activeItem.itemName){
+													self.areas = self.citys[i].areas;
+													self.$nextTick(function(){
+														areas = new selector({
+															el:"#areas",
+															onInit:function(){
+																self.selectRegion = this.activeItem.itemName;
+															},
+															onMoveEnd:function(){
+																self.selectRegion = this.activeItem.itemName;
+															}
+														})
+													})
+												}
+											}
+										},
+										onMoveEnd:function(){
+											self.selectCity = this.activeItem.itemName;
+											for(var i=0;i<self.citys.length;i++){
+												if(self.citys[i].region_name==this.activeItem.itemName){
+													self.areas = self.citys[i].areas;
+													self.$nextTick(function(){
+														areas.destroy();
+														areas = new selector({
+															el:"#areas",
+															onInit:function(){
+																self.selectRegion = this.activeItem.itemName;
+															},
+															onMoveEnd:function(){
+																self.selectRegion = this.activeItem.itemName;
+															}
+														})
+													})
+												}
+											}
+										}
+
+									})
+								})
+							}
+						}
+					},
+					onMoveEnd:function(){
+						self.selectProvince = this.activeItem.itemName;
+						for(var i=0;i<self.regions.length;i++){
+							if(self.regions[i].region_name==this.activeItem.itemName){
+								self.citys = self.regions[i].citys;
+								self.$nextTick(function(){
+									citys.destroy();
+									citys = new selector({
+										el:"#citys",
+										onInit:function(){
+											self.selectCity = this.activeItem.itemName;
+											for(var i=0;i<self.citys.length;i++){
+												if(self.citys[i].region_name==this.activeItem.itemName){
+													self.areas = self.citys[i].areas;
+													self.$nextTick(function(){
+														areas.destroy();
+														areas = new selector({
+															el:"#areas",
+															onInit:function(){
+																self.selectRegion = this.activeItem.itemName;
+															},
+															onMoveEnd:function(){
+																self.selectRegion = this.activeItem.itemName;
+															}
+														})
+													})
+												}
+											}
+										},
+										onMoveEnd:function(){
+											self.selectCity = this.activeItem.itemName;
+											for(var i=0;i<self.citys.length;i++){
+												if(self.citys[i].region_name==this.activeItem.itemName){
+													self.areas = self.citys[i].areas;
+													self.$nextTick(function(){
+														areas.destroy();
+														areas = new selector({
+															el:"#areas",
+															onInit:function(){
+																self.selectRegion = this.activeItem.itemName;
+															},
+															onMoveEnd:function(){
+																self.selectRegion = this.activeItem.itemName;
+															}
+														})
+													})
+												}
+											}
+										}
+									})
+								})
+							}
+						}
+					}
+				})
+			},
+			methods:{
+				undoEvent:function(){
+					var self=this;
+					
+				},
+				comfirmEvent:function(){
+					var self=this;
+					self.activeArea=self.selectProvince+self.selectCity+self.selectRegion;
+				},
+				citysChange:function(){
+					
+				},
+				regionChange:function(){
+					
+				}
+			}
+			
+		});
+	}
+});
+
+				
+	</script>
+</html>

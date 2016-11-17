@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<link href="plugins/swiper/swiper-3.3.1.min.css" rel="stylesheet"/>
+		<style>
+			*{margin:0;padding:0;box-sizing:border-box;}
+			html,body{
+				width:100%;
+				height:100%;
+				font-family: "微软雅黑";
+			}
+			.clearfix{*zoom:1;}
+			.clearfix:after{display:block; visibility:hidden; clear:both; height:0; font-size:0; content:"";}
+			header{width:100%;height:40px;line-height:40px;text-align:center;background-color:#fff;color:#2B2B2B;border-bottom:1px solid #eee;}
+			.item-lists{width:100%;}
+			.item-lists>li{width:100%;height:40px;line-height:40px;padding:0 10px;border-bottom:1px solid #eee;}
+			.item-lists>li~li{}
+			.item-lists>li>div:nth-child(1){
+				width:50px;
+				float:left;
+			}
+			.item-lists>li>div:nth-child(2){
+				overflow:hidden;
+			}
+			.item-lists>li>div:nth-child(2) input{
+				border:none;
+				overflow:hidden;
+			}
+			.item-lists>li>div:nth-child(2) input:focus{
+				outline:none;
+			}
+			.item-lists>li>div:nth-child(2) .btn-arrow{
+				color:#C3C3C3;
+				width:20px;
+				float:right;
+				margin-right:20px;
+			}
+			.area-select-lists{
+				position:fixed;
+				bottom:0;
+				left:0;
+				width:100%;
+				height:200px;
+				background-color:#fff;
+				border:1px solid #ccc;
+				border-radius:3px;
+				color:#C3C3C3;
+				font-size:16px;
+			}
+			.area-select-lists .select-list{
+				height:100%;
+			}
+			.area-select-lists .select-list>div{
+				position:relative;
+				float:left;
+				width:32%;
+				height:100%;
+				line-height:40px;
+				text-align:center;
+			}
+			.active-area{
+				position:absolute;
+				left:2px;
+				top:40%;
+				bottom:35%;
+				z-index:10;
+				width:99%;
+				height:40px;
+				line-height:40px;
+				border-top:1px solid #ccc;
+				border-bottom:1px solid #ccc;
+				
+			}
+			.area-select-lists .select-list>div~div{
+				margin-left:2%;
+			}
+			.area-select-lists .title{
+				color:#000;
+			}
+			.area-select-lists .area-header{
+				position:absolute;
+				top:0;
+				left:0;
+				z-index:2;
+				width:100%;
+				height:40px;
+				line-height:40px;
+				background-color:#fff;
+				border-bottom:1px solid #C4C3C3;
+			}
+			.area-select-lists .area-header>div{
+				height:40px;
+			}
+			.area-select-lists .select-area{
+				position:absolute;
+				left:0;
+				bottom:40px;
+				z-index:2;
+				width:100%;
+				height:40px;
+				line-height:40px;
+				
+			}
+			.area-select-lists .select-area>div{
+				border-top:1px solid #ccc;
+				border-bottom:1px solid #ccc;
+			}
+			.area-select-lists .area-lists{
+				position:relative;
+				width:100%;
+			}
+			.area-select-lists .area-lists>li{
+				list-style:none;
+				height:40px;
+			}
+			.swiper-container {
+		        margin-left: auto;
+		        margin-right: auto;
+		    }
+			.swiper-slide{
+				text-align: center;
+		        font-size: 14px;
+		        background: #fff;
+		        display: -webkit-box;
+		        display: -ms-flexbox;
+		        display: -webkit-flex;
+		        display: flex;
+		        -webkit-box-pack: center;
+		        -ms-flex-pack: center;
+		        -webkit-justify-content: center;
+		        justify-content: center;
+		        -webkit-box-align: center;
+		        -ms-flex-align: center;
+		        -webkit-align-items: center;
+		        align-items: center;
+				-webkit-transition:all .2s ease-in;
+				transition:all .2s ease-in;
+			}
+			.swiper-active{
+				font-size:24px;
+				color:#2b2b2b;
+			}
+			.animation{
+				-webkit-animation-duration:.2s;
+				animation-duration:.2s;
+				-webkit-animation-timing-function:ease-in;
+				animation-timing-function:ease-in;
+			}
+			.slideUp{
+				-webkit-animation-name:slideUp;
+				animation-name:slideUp;
+			}
+			.slideDown{
+				-webkit-animation-name:slideDown;
+				animation-name:slideDown;
+			}
+			/*.area-select-lists{
+				transform:translateY(100%);
+					-webkit-transform:translateY(100%);
+			}*/
+			
+			/*动画效果*/
+			@keyframes slideUp{
+				0%{
+					transform:translateY(-100%);
+					-webkit-transform:translateY(-100%);
+				}
+				100%{
+					transform:translateY(0);
+					-webkit-transform:translateY(0);
+				}
+			}
+			@-webkit-keyframes slideUp{
+				0%{
+					transform:translateY(-100%);
+					-webkit-transform:translateY(-100%);
+				}
+				100%{
+					transform:translateY(0);
+					-webkit-transform:translateY(0);
+				}
+			}
+			
+			@keyframes slideDown{
+				0%{
+					transform:translateY(100%);
+					-webkit-transform:translateY(100%);
+				}
+				100%{
+					transform:translateY(0);
+					-webkit-transform:translateY(0);
+				}
+			}
+			@-webkit-keyframes slideUp{
+				0%{
+					transform:translateY(100%);
+					-webkit-transform:translateY(100%);
+				}
+				100%{
+					transform:translateY(0);
+					-webkit-transform:translateY(0);
+				}
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div class="demo" id="Demo">
+			<header>demo</header>
+			<section>
+				<ul class="item-lists">
+					<li class="clearfix">
+						<div>地区</div>
+						<div class="clearfix">
+							<input type="text" placeholder="请选择省市区" v-model="activeArea" v-on:focus="cascadingInModal()" v-on:blur="cascadingOutModal()"/>
+							<a class="btn-arrow">></a>
+						</div>
+					</li>
+				</ul>
+				<!--地区-->
+				<div class="area-select-lists animation" >
+					<!--header-->
+					<div class="select-list area-header">
+						<div v-on:click="undoEvent()">取消</div>
+						<div class="title">选择地区</div>
+						<div v-on:click="comfirmEvent()">确定</div>
+					</div>
+					<!--content-->
+					<div class="select-list area-content clearfix">
+						<!--省-->
+						<div class="swiper-container swiper-container-1">
+							<ul class="area-lists swiper-wrapper">
+								<li class="swiper-slide" data-num="{{i.index}}" v-for="i in provinces" v-bind:class="{'swiper-active':$index==activeProvincessIndex}">{{i.name}}</li>
+							</ul>
+							<div class="active-area"></div>
+						</div>
+						<!--市-->
+						<div class="swiper-container swiper-container-2">
+							<ul class="area-lists swiper-wrapper">
+								<li class="swiper-slide" data-num="{{item.id}}" v-for="item in activeCitys" v-bind:class="{'swiper-active':$index==activeCitysIndex}">{{item.name}}</li>
+							</ul>
+							<div class="active-area"></div>
+						</div>
+						<!--区-->
+						<div class="swiper-container swiper-container-3">
+							<ul class="area-lists swiper-wrapper">
+								<li class="swiper-slide" data-num="{{i.regionId}}" v-for="i in activeRegions" v-bind:class="{'swiper-active':$index==activeRegionsIndex}">{{i.name}}</li>
+							</ul>
+							<div class="active-area"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!--<footer></footer>-->
+		</div>
+	</body>
+	<script src="js/vue/vue.js"></script>
+	<script src="js/jquery/jquery-1.9.1.min.js"></script>
+	<script src="js/zepto/zepto.js"></script>
+	<script src="js/zepto/touch.js"></script>
+	<script src="plugins/swiper/swiper-3.3.1.min.js"></script>
+	<script>
+		var vm=new Vue({
+			el:"#Demo",
+			data:{
+				provinces:[
+					{
+						"index":0,
+						"name":"广西省",
+						"city":[
+						 	{
+						 	   "id":10,
+						 	   "name":"桂林",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":100,
+						 	   			"name":"阳朔"
+						 	   		},
+						 	   		{
+						 	   			"regionId":101,
+						 	   			"name":"兴安"
+						 	   		},
+						 	   		{
+						 	   			"regionId":102,
+						 	   			"name":"七星"
+						 	   		},
+						 	   		{
+						 	   			"regionId":103,
+						 	   			"name":"象山"
+						 	   		},
+						 	   		{
+						 	   			"regionId":104,
+						 	   			"name":"龙胜"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":11,
+						 	   "name":"南宁",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":110,
+						 	   			"name":"江南"
+						 	   		},
+						 	   		{
+						 	   			"regionId":111,
+						 	   			"name":"青秀区"
+						 	   		},
+						 	   		{
+						 	   			"regionId":112,
+						 	   			"name":"宾阳"
+						 	   		},
+						 	   		{
+						 	   			"regionId":113,
+						 	   			"name":"上林"
+						 	   		},
+						 	   		{
+						 	   			"regionId":114,
+						 	   			"name":"隆安"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":12,
+						 	   "name":"柳州",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":120,
+						 	   			"name":"柳东"
+						 	   		},
+						 	   		{
+						 	   			"regionId":121,
+						 	   			"name":"柳西"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":13,
+						 	   "name":"玉林",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":131,
+						 	   			"name":"玉龙"
+						 	   		},
+						 	   		{
+						 	   			"regionId":132,
+						 	   			"name":"星星"
+						 	   		},
+						 	   		{
+						 	   			"regionId":133,
+						 	   			"name":"陆川"
+						 	   		},
+						 	   		{
+						 	   			"regionId":134,
+						 	   			"name":"博白"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":14,
+						 	   "name":"贵港",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":140,
+						 	   			"name":"平南"
+						 	   		},
+						 	   		{
+						 	   			"regionId":140,
+						 	   			"name":"平北"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	}
+						]
+					},
+					{
+						"index":1,
+						"name":"广东省",
+						"city":[
+						 	{
+						 	   "id":20,
+						 	   "name":"广州",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":200,
+						 	   			"name":"海珠"
+						 	   		},
+						 	   		{
+						 	   			"regionId":201,
+						 	   			"name":"天河"
+						 	   		},
+						 	   		{
+						 	   			"regionId":202,
+						 	   			"name":"白云"
+						 	   		},
+						 	   		{
+						 	   			"regionId":203,
+						 	   			"name":"越秀"
+						 	   		},
+						 	   		{
+						 	   			"regionId":204,
+						 	   			"name":"番禺"
+						 	   		},
+						 	   		{
+						 	   			"regionId":205,
+						 	   			"name":"南沙"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":21,
+						 	   "name":"汕头",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":210,
+						 	   			"name":"澄海"
+						 	   		},
+						 	   		{
+						 	   			"regionId":211,
+						 	   			"name":"金平"
+						 	   		},
+						 	   		{
+						 	   			"regionId":212,
+						 	   			"name":"南澳"
+						 	   		},
+						 	   		{
+						 	   			"regionId":213,
+						 	   			"name":"潮南"
+						 	   		},
+						 	   		{
+						 	   			"regionId":214,
+						 	   			"name":"饶平"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":22,
+						 	   "name":"深圳",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":220,
+						 	   			"name":"福田"
+						 	   		},
+						 	   		{
+						 	   			"regionId":221,
+						 	   			"name":"龙田"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":23,
+						 	   "name":"肇庆",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":231,
+						 	   			"name":"四会"
+						 	   		},
+						 	   		{
+						 	   			"regionId":232,
+						 	   			"name":"苹果"
+						 	   		},
+						 	   		{
+						 	   			"regionId":233,
+						 	   			"name":"橘子"
+						 	   		},
+						 	   		{
+						 	   			"regionId":234,
+						 	   			"name":"香蕉"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":24,
+						 	   "name":"惠州",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":240,
+						 	   			"name":"惠东"
+						 	   		},
+						 	   		{
+						 	   			"regionId":240,
+						 	   			"name":"惠南"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	}
+						]
+					},
+					{
+						"index":2,
+						"name":"陕西省",
+						"city":[
+						 	{
+						 	   "id":20,
+						 	   "name":"广州",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":200,
+						 	   			"name":"海珠"
+						 	   		},
+						 	   		{
+						 	   			"regionId":201,
+						 	   			"name":"天河"
+						 	   		},
+						 	   		{
+						 	   			"regionId":202,
+						 	   			"name":"白云"
+						 	   		},
+						 	   		{
+						 	   			"regionId":203,
+						 	   			"name":"越秀"
+						 	   		},
+						 	   		{
+						 	   			"regionId":204,
+						 	   			"name":"番禺"
+						 	   		},
+						 	   		{
+						 	   			"regionId":205,
+						 	   			"name":"南沙"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":21,
+						 	   "name":"汕头",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":210,
+						 	   			"name":"澄海"
+						 	   		},
+						 	   		{
+						 	   			"regionId":211,
+						 	   			"name":"金平"
+						 	   		},
+						 	   		{
+						 	   			"regionId":212,
+						 	   			"name":"南澳"
+						 	   		},
+						 	   		{
+						 	   			"regionId":213,
+						 	   			"name":"潮南"
+						 	   		},
+						 	   		{
+						 	   			"regionId":214,
+						 	   			"name":"饶平"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":22,
+						 	   "name":"深圳",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":220,
+						 	   			"name":"福田"
+						 	   		},
+						 	   		{
+						 	   			"regionId":221,
+						 	   			"name":"龙田"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":23,
+						 	   "name":"肇庆",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":231,
+						 	   			"name":"四会"
+						 	   		},
+						 	   		{
+						 	   			"regionId":232,
+						 	   			"name":"苹果"
+						 	   		},
+						 	   		{
+						 	   			"regionId":233,
+						 	   			"name":"橘子"
+						 	   		},
+						 	   		{
+						 	   			"regionId":234,
+						 	   			"name":"香蕉"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":24,
+						 	   "name":"惠州",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":240,
+						 	   			"name":"惠东"
+						 	   		},
+						 	   		{
+						 	   			"regionId":240,
+						 	   			"name":"惠南"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	}
+						]
+					},
+					{
+						"index":3,
+						"name":"山西省",
+						"city":[
+						 	{
+						 	   "id":30,
+						 	   "name":"广州",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":300,
+						 	   			"name":"海珠"
+						 	   		},
+						 	   		{
+						 	   			"regionId":301,
+						 	   			"name":"天河"
+						 	   		},
+						 	   		{
+						 	   			"regionId":302,
+						 	   			"name":"白云"
+						 	   		},
+						 	   		{
+						 	   			"regionId":303,
+						 	   			"name":"越秀"
+						 	   		},
+						 	   		{
+						 	   			"regionId":304,
+						 	   			"name":"番禺"
+						 	   		},
+						 	   		{
+						 	   			"regionId":305,
+						 	   			"name":"南沙"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":31,
+						 	   "name":"汕头",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":310,
+						 	   			"name":"澄海"
+						 	   		},
+						 	   		{
+						 	   			"regionId":311,
+						 	   			"name":"金平"
+						 	   		},
+						 	   		{
+						 	   			"regionId":312,
+						 	   			"name":"南澳"
+						 	   		},
+						 	   		{
+						 	   			"regionId":313,
+						 	   			"name":"潮南"
+						 	   		},
+						 	   		{
+						 	   			"regionId":314,
+						 	   			"name":"饶平"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":32,
+						 	   "name":"深圳",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":320,
+						 	   			"name":"福田"
+						 	   		},
+						 	   		{
+						 	   			"regionId":321,
+						 	   			"name":"龙田"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":33,
+						 	   "name":"肇庆",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":331,
+						 	   			"name":"四会"
+						 	   		},
+						 	   		{
+						 	   			"regionId":332,
+						 	   			"name":"苹果"
+						 	   		},
+						 	   		{
+						 	   			"regionId":333,
+						 	   			"name":"橘子"
+						 	   		},
+						 	   		{
+						 	   			"regionId":334,
+						 	   			"name":"香蕉"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":34,
+						 	   "name":"惠州",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":340,
+						 	   			"name":"惠东"
+						 	   		},
+						 	   		{
+						 	   			"regionId":340,
+						 	   			"name":"惠南"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	}
+						]
+						
+					},
+					{
+						"index":4,
+						"name":"福建省",
+						"city":[
+						 	{
+						 	   "id":40,
+						 	   "name":"广州",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":400,
+						 	   			"name":"海珠"
+						 	   		},
+						 	   		{
+						 	   			"regionId":401,
+						 	   			"name":"天河"
+						 	   		},
+						 	   		{
+						 	   			"regionId":402,
+						 	   			"name":"白云"
+						 	   		},
+						 	   		{
+						 	   			"regionId":403,
+						 	   			"name":"越秀"
+						 	   		},
+						 	   		{
+						 	   			"regionId":404,
+						 	   			"name":"番禺"
+						 	   		},
+						 	   		{
+						 	   			"regionId":405,
+						 	   			"name":"南沙"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":41,
+						 	   "name":"汕头",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":410,
+						 	   			"name":"澄海"
+						 	   		},
+						 	   		{
+						 	   			"regionId":411,
+						 	   			"name":"金平"
+						 	   		},
+						 	   		{
+						 	   			"regionId":412,
+						 	   			"name":"南澳"
+						 	   		},
+						 	   		{
+						 	   			"regionId":413,
+						 	   			"name":"潮南"
+						 	   		},
+						 	   		{
+						 	   			"regionId":414,
+						 	   			"name":"饶平"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":42,
+						 	   "name":"深圳",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":420,
+						 	   			"name":"福田"
+						 	   		},
+						 	   		{
+						 	   			"regionId":421,
+						 	   			"name":"龙田"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":43,
+						 	   "name":"肇庆",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":431,
+						 	   			"name":"四会"
+						 	   		},
+						 	   		{
+						 	   			"regionId":432,
+						 	   			"name":"苹果"
+						 	   		},
+						 	   		{
+						 	   			"regionId":433,
+						 	   			"name":"橘子"
+						 	   		},
+						 	   		{
+						 	   			"regionId":434,
+						 	   			"name":"香蕉"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":44,
+						 	   "name":"惠州",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":440,
+						 	   			"name":"惠东"
+						 	   		},
+						 	   		{
+						 	   			"regionId":440,
+						 	   			"name":"惠南"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	}
+						]
+					},
+					{
+						"index":5,
+						"name":"西藏",
+						"city":[
+						 	{
+						 	   "id":50,
+						 	   "name":"广州",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":500,
+						 	   			"name":"海珠"
+						 	   		},
+						 	   		{
+						 	   			"regionId":501,
+						 	   			"name":"天河"
+						 	   		},
+						 	   		{
+						 	   			"regionId":502,
+						 	   			"name":"白云"
+						 	   		},
+						 	   		{
+						 	   			"regionId":503,
+						 	   			"name":"越秀"
+						 	   		},
+						 	   		{
+						 	   			"regionId":504,
+						 	   			"name":"番禺"
+						 	   		},
+						 	   		{
+						 	   			"regionId":505,
+						 	   			"name":"南沙"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":51,
+						 	   "name":"汕头",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":510,
+						 	   			"name":"澄海"
+						 	   		},
+						 	   		{
+						 	   			"regionId":511,
+						 	   			"name":"金平"
+						 	   		},
+						 	   		{
+						 	   			"regionId":512,
+						 	   			"name":"南澳"
+						 	   		},
+						 	   		{
+						 	   			"regionId":513,
+						 	   			"name":"潮南"
+						 	   		},
+						 	   		{
+						 	   			"regionId":514,
+						 	   			"name":"饶平"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":52,
+						 	   "name":"深圳",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":520,
+						 	   			"name":"福田"
+						 	   		},
+						 	   		{
+						 	   			"regionId":521,
+						 	   			"name":"龙田"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":53,
+						 	   "name":"肇庆",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":531,
+						 	   			"name":"四会"
+						 	   		},
+						 	   		{
+						 	   			"regionId":532,
+						 	   			"name":"苹果"
+						 	   		},
+						 	   		{
+						 	   			"regionId":533,
+						 	   			"name":"橘子"
+						 	   		},
+						 	   		{
+						 	   			"regionId":534,
+						 	   			"name":"香蕉"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":54,
+						 	   "name":"惠州",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":540,
+						 	   			"name":"惠东"
+						 	   		},
+						 	   		{
+						 	   			"regionId":540,
+						 	   			"name":"惠南"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	}
+						]
+					},
+					{
+						"index":6,
+						"name":"北京",
+						"city":[
+						 	{
+						 	   "id":60,
+						 	   "name":"北京",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":601,
+						 	   			"name":"北京"
+						 	   		}
+						 	   ]
+						 	}
+						]
+					},
+					{
+						"index":7,
+						"name":"重庆",
+						"city":[
+						 	{
+						 	   "id":70,
+						 	   "name":"重庆",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":701,
+						 	   			"name":"重庆"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	}
+						]
+					},
+					{
+						"index":8,
+						"name":"湖南",
+						"city":[
+						 	{
+						 	   "id":80,
+						 	   "name":"广州",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":800,
+						 	   			"name":"海珠"
+						 	   		},
+						 	   		{
+						 	   			"regionId":801,
+						 	   			"name":"天河"
+						 	   		},
+						 	   		{
+						 	   			"regionId":802,
+						 	   			"name":"白云"
+						 	   		},
+						 	   		{
+						 	   			"regionId":803,
+						 	   			"name":"越秀"
+						 	   		},
+						 	   		{
+						 	   			"regionId":804,
+						 	   			"name":"番禺"
+						 	   		},
+						 	   		{
+						 	   			"regionId":805,
+						 	   			"name":"南沙"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":81,
+						 	   "name":"汕头",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":810,
+						 	   			"name":"澄海"
+						 	   		},
+						 	   		{
+						 	   			"regionId":811,
+						 	   			"name":"金平"
+						 	   		},
+						 	   		{
+						 	   			"regionId":812,
+						 	   			"name":"南澳"
+						 	   		},
+						 	   		{
+						 	   			"regionId":813,
+						 	   			"name":"潮南"
+						 	   		},
+						 	   		{
+						 	   			"regionId":814,
+						 	   			"name":"饶平"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":82,
+						 	   "name":"深圳",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":820,
+						 	   			"name":"福田"
+						 	   		},
+						 	   		{
+						 	   			"regionId":821,
+						 	   			"name":"龙田"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":83,
+						 	   "name":"肇庆",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":831,
+						 	   			"name":"四会"
+						 	   		},
+						 	   		{
+						 	   			"regionId":832,
+						 	   			"name":"苹果"
+						 	   		},
+						 	   		{
+						 	   			"regionId":833,
+						 	   			"name":"橘子"
+						 	   		},
+						 	   		{
+						 	   			"regionId":834,
+						 	   			"name":"香蕉"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	},
+						 	{
+						 	   "id":84,
+						 	   "name":"惠州",
+						 	   "region":[
+						 	   		{
+						 	   			"regionId":840,
+						 	   			"name":"惠东"
+						 	   		},
+						 	   		{
+						 	   			"regionId":840,
+						 	   			"name":"惠南"
+						 	   		}
+						 	   		 
+						 	   ]
+						 	}
+						]
+					}
+					
+				],
+				activeCitys:[],
+				activeRegions:[],
+				activeProvincessIndex:0,
+				activeCitysIndex:0,
+				activeRegionsIndex:0,
+				selectProvince:"",
+				selectCity:"",
+				selectRegion:"",
+				activeArea:""
+			},
+			computed:function(){
+				var self=this;
+				/*self.selectProvince=*/
+			},
+			ready:function(){
+				
+				var self=this;
+				
+				console.log(self.activeCitys);
+				var swiper = new Swiper('.swiper-container-1', {
+			        direction: 'vertical',
+			        centeredSlides:true,
+			        slidesPerView:'auto',
+			        freeMode: false,
+                    freeModeSticky: true,
+                    slideToClickedSlide: true,
+			        spaceBetween:0,
+			        onInit: function (swiper) {
+			        	/*debugger;*/
+						//激活当前的城市
+						self.activeCitys=self.provinces[0].city;
+						self.$nextTick(self.initSwiper2);
+						
+						//激活当前的区
+						self.activeRegions=self.activeCitys[0].region;
+						self.$nextTick(self.initSwiper3);
+                   },
+                    onSlideChangeStart: function (swiper) {
+
+                    },
+                    onSlideChangeEnd: function (swiper) {
+                        //获取active的索引值
+                        var activeIndex=swiper.activeIndex;
+                        //改变省份激活索引值
+                        self.activeProvincessIndex=activeIndex;
+                        //改变城市激活索引值
+                        self.activeCitysIndex=0;
+                        //改变区激活索引值
+                        self.activeRegionsIndex=0;
+                        //修改城市
+                        self.activeCitys=self.provinces[activeIndex].city;
+                        self.$nextTick(self.initSwiper2);
+					
+						//修改区
+						self.activeRegions=self.activeCitys[0].region;
+		                self.$nextTick(self.initSwiper3);
+						
+                     
+                    }
+			    });
+			    
+			    
+			},
+			methods:{
+				cascadingInModal:function(){
+					/*debugger;*/
+					var self=this;
+					var $modal=$(".area-select-lists");
+				    if($modal.hasClass("slideUp")){
+				    	$modal.removeClass("slideUp");
+				    	$modal.addClass('slideDown');
+				    }else{
+				    	$modal.addClass('slideDown');
+				    }
+				},
+				cascadingOutModal:function(){
+					/*debugger;*/
+					var self=this;
+					var $modal=$(".area-select-lists");
+					if($modal.hasClass("slideDown")){
+				    	$modal.removeClass("slideDown");
+				    	$modal.addClass('slideUp');
+				    }else{
+				    	$modal.addClass('slideUp');
+				    }
+				},
+				initSwiper2:function(){
+						var self=this;
+						var swiper2= new Swiper('.swiper-container-2', {
+					        direction: 'vertical',
+					        centeredSlides:true,
+					        slidesPerView:'auto',
+					        freeMode: false, /*自动贴合*/
+		                    freeModeSticky: true,
+		                    slideToClickedSlide: true,
+					        spaceBetween:0,
+					        onInit: function (swiper2) { /*回调函数，初始化后执行。*/
+					       		var activeIndex=swiper2.activeIndex;
+								 console.log(activeIndex);
+		                    },
+		
+		                    onSlideChangeStart: function (swiper2) {
+
+		                    },
+		                    onSlideChangeEnd: function (swiper2) {
+		                    	/*debugger;*/
+		                        //获取active的索引值
+		                        var activeIndex=swiper2.activeIndex;
+		                        self.activeRegions=self.activeCitys[activeIndex].region;
+		                        self.$nextTick(self.initSwiper3);
+								
+		                        /*swiper2.activeIndex=0;*/
+		                        
+		                        //修改城市激活状态索引值
+		                        self.activeCitysIndex=activeIndex;
+		                         //改变区激活索引值
+                        		self.activeRegionsIndex=0;
+		                    }
+					    });
+				},
+				initSwiper3:function(){
+					var self=this;
+					var swiper3 = new Swiper('.swiper-container-3', {
+			        direction: 'vertical',
+			        centeredSlides:true,
+			        slidesPerView:'auto',
+			        freeMode: false, 
+                    freeModeSticky: true,
+                    slideToClickedSlide: true,
+			        spaceBetween:0,
+			        onInit: function (swiper3) { 
+						
+                    },
+
+                    onSlideChangeStart: function (swiper3) {
+
+                    },
+                    onSlideChangeEnd: function (swiper3) {
+                        //获取active的索引值
+                        var activeIndex=swiper3.activeIndex;
+                        self.activeRegionsIndex=activeIndex;
+						console.log(activeIndex);
+                     
+                    }
+			    });
+				},
+				undoEvent:function(){
+					var self=this;
+				},
+				comfirmEvent:function(){
+					var self=this;
+				    self.selectProvince=self.$el.querySelector(".swiper-container-1 .swiper-active").innerText;
+					self.selectCity=self.$el.querySelector(".swiper-container-2 .swiper-active").innerText;
+					self.selectRegion=self.$el.querySelector(".swiper-container-3 .swiper-active").innerText;
+					self.activeArea=self.selectProvince+self.selectCity+self.selectRegion;
+					
+				}
+			}
+		});
+	</script>
+</html>

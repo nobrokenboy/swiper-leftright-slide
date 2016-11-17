@@ -111,3 +111,7 @@
 			    font-size:2.25rem;
 			}
 			
+            /*解决v-if会闪烁的问题*/
+           [v-cloak]{
+			    display:none;
+			}
