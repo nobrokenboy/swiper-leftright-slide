@@ -218,7 +218,7 @@
 					<li class="clearfix">
 						<div>地区</div>
 						<div class="clearfix">
-							<input type="text" placeholder="请选择省市区" v-model="activeArea" v-on:focus="cascadingInModal()" v-on:blur="cascadingOutModal()"/>
+							<input type="text" placeholder="请选择省市区" v-model="activeArea"/>
 							<a class="btn-arrow">></a>
 						</div>
 					</li>
@@ -1131,10 +1131,6 @@
 				selectRegion:"",
 				activeArea:""
 			},
-			computed:function(){
-				var self=this;
-				/*self.selectProvince=*/
-			},
 			ready:function(){
 				
 				var self=this;
@@ -1185,28 +1181,6 @@
 			    
 			},
 			methods:{
-				cascadingInModal:function(){
-					/*debugger;*/
-					var self=this;
-					var $modal=$(".area-select-lists");
-				    if($modal.hasClass("slideUp")){
-				    	$modal.removeClass("slideUp");
-				    	$modal.addClass('slideDown');
-				    }else{
-				    	$modal.addClass('slideDown');
-				    }
-				},
-				cascadingOutModal:function(){
-					/*debugger;*/
-					var self=this;
-					var $modal=$(".area-select-lists");
-					if($modal.hasClass("slideDown")){
-				    	$modal.removeClass("slideDown");
-				    	$modal.addClass('slideUp');
-				    }else{
-				    	$modal.addClass('slideUp');
-				    }
-				},
 				initSwiper2:function(){
 						var self=this;
 						var swiper2= new Swiper('.swiper-container-2', {
