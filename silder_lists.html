@@ -113,15 +113,18 @@
 			}
 			.area-select-lists .area-lists{
 				position:relative;
-				width:100%;
+				/*width:100%;*/
 			}
 			.area-select-lists .area-lists>li{
 				list-style:none;
 				height:40px;
 			}
-			.swiper-container {
+			.swiper-container{
 		        margin-left: auto;
 		        margin-right: auto;
+		    }
+		    .swiper-wrapper{
+		    	height:auto;
 		    }
 			.swiper-slide{
 				text-align: center;
@@ -375,7 +378,7 @@
 						 	   			"name":"平南"
 						 	   		},
 						 	   		{
-						 	   			"regionId":140,
+						 	   			"regionId":141,
 						 	   			"name":"平北"
 						 	   		}
 						 	   		 
@@ -492,7 +495,7 @@
 						 	   			"name":"惠东"
 						 	   		},
 						 	   		{
-						 	   			"regionId":240,
+						 	   			"regionId":241,
 						 	   			"name":"惠南"
 						 	   		}
 						 	   		 
@@ -609,7 +612,7 @@
 						 	   			"name":"惠东"
 						 	   		},
 						 	   		{
-						 	   			"regionId":240,
+						 	   			"regionId":241,
 						 	   			"name":"惠南"
 						 	   		}
 						 	   		 
@@ -726,7 +729,7 @@
 						 	   			"name":"惠东"
 						 	   		},
 						 	   		{
-						 	   			"regionId":340,
+						 	   			"regionId":341,
 						 	   			"name":"惠南"
 						 	   		}
 						 	   		 
@@ -844,7 +847,7 @@
 						 	   			"name":"惠东"
 						 	   		},
 						 	   		{
-						 	   			"regionId":440,
+						 	   			"regionId":441,
 						 	   			"name":"惠南"
 						 	   		}
 						 	   		 
@@ -961,7 +964,7 @@
 						 	   			"name":"惠东"
 						 	   		},
 						 	   		{
-						 	   			"regionId":540,
+						 	   			"regionId":541,
 						 	   			"name":"惠南"
 						 	   		}
 						 	   		 
@@ -1111,7 +1114,7 @@
 						 	   			"name":"惠东"
 						 	   		},
 						 	   		{
-						 	   			"regionId":840,
+						 	   			"regionId":841,
 						 	   			"name":"惠南"
 						 	   		}
 						 	   		 
@@ -1136,47 +1139,54 @@
 				var self=this;
 				
 				console.log(self.activeCitys);
-				var swiper = new Swiper('.swiper-container-1', {
-			        direction: 'vertical',
-			        centeredSlides:true,
-			        slidesPerView:'auto',
-			        freeMode: false,
-                    freeModeSticky: true,
-                    slideToClickedSlide: true,
-			        spaceBetween:0,
-			        onInit: function (swiper) {
-			        	/*debugger;*/
-						//激活当前的城市
-						self.activeCitys=self.provinces[0].city;
-						self.$nextTick(self.initSwiper2);
+				self.$nextTick(function(){
+					var swiper = new Swiper('.swiper-container-1', {
+				        direction: 'vertical',
+				        centeredSlides:true,
+				        slidesPerView:'auto',
+				        freeMode: false,
+	                    freeModeSticky: true,
+	                    slideToClickedSlide: true,
+				        spaceBetween:0,
+				        observer:true,//修改swiper自己或子元素时，自动初始化swiper
+    					observeParents:true,//修改swiper的父元素时，自动初始化swiper
+				        onInit: function (swiper) {
+				        	console.log("省份"+swiper.activeIndex);
+				        	/*debugger;*/
+							//激活当前的城市
+							self.activeCitys=self.provinces[0].city;
+							self.$nextTick(self.initSwiper2);
+							
+							//激活当前的区
+							self.activeRegions=self.activeCitys[0].region;
+							self.$nextTick(self.initSwiper3);
+	                   },
+	                    onSlideChangeStart: function (swiper) {
+							console.log("开始呢"+swiper.activeIndex);
+	                    },
+	                    onSlideChangeEnd: function (swiper) {
+	                    	console.log("省份"+swiper.activeIndex);
+	                        //获取active的索引值
+	                        var activeIndex=swiper.activeIndex;
+	                        //改变省份激活索引值
+	                        self.activeProvincessIndex=activeIndex;
+	                        //改变城市激活索引值
+	                        self.activeCitysIndex=0;
+	                        //改变区激活索引值
+	                        self.activeRegionsIndex=0;
+	                        //修改城市
+	                        self.activeCitys=self.provinces[activeIndex].city;
+	                        self.$nextTick(self.initSwiper2);
 						
-						//激活当前的区
-						self.activeRegions=self.activeCitys[0].region;
-						self.$nextTick(self.initSwiper3);
-                   },
-                    onSlideChangeStart: function (swiper) {
-
-                    },
-                    onSlideChangeEnd: function (swiper) {
-                        //获取active的索引值
-                        var activeIndex=swiper.activeIndex;
-                        //改变省份激活索引值
-                        self.activeProvincessIndex=activeIndex;
-                        //改变城市激活索引值
-                        self.activeCitysIndex=0;
-                        //改变区激活索引值
-                        self.activeRegionsIndex=0;
-                        //修改城市
-                        self.activeCitys=self.provinces[activeIndex].city;
-                        self.$nextTick(self.initSwiper2);
-					
-						//修改区
-						self.activeRegions=self.activeCitys[0].region;
-		                self.$nextTick(self.initSwiper3);
-						
-                     
-                    }
-			    });
+							//修改区
+							self.activeRegions=self.activeCitys[0].region;
+			                self.$nextTick(self.initSwiper3);
+							
+	                     
+	                    }
+				    });
+				    
+				});
 			    
 			    
 			},
@@ -1191,15 +1201,18 @@
 		                    freeModeSticky: true,
 		                    slideToClickedSlide: true,
 					        spaceBetween:0,
+					        observer:true,//修改swiper自己或子元素时，自动初始化swiper
+							observeParents:true,//修改swiper的父元素时，自动初始化swiper
 					        onInit: function (swiper2) { /*回调函数，初始化后执行。*/
 					       		var activeIndex=swiper2.activeIndex;
-								 console.log(activeIndex);
+								 console.log("城市"+activeIndex);
 		                    },
-		
-		                    onSlideChangeStart: function (swiper2) {
-
+							onSlideChangeStart: function (swiper2) {
+								
 		                    },
 		                    onSlideChangeEnd: function (swiper2) {
+		                    	/*debugger;*/
+		                    	console.log("城市"+swiper2.activeIndex);
 		                    	/*debugger;*/
 		                        //获取active的索引值
 		                        var activeIndex=swiper2.activeIndex;
@@ -1214,32 +1227,37 @@
                         		self.activeRegionsIndex=0;
 		                    }
 					    });
+					     
 				},
 				initSwiper3:function(){
 					var self=this;
 					var swiper3 = new Swiper('.swiper-container-3', {
-			        direction: 'vertical',
-			        centeredSlides:true,
-			        slidesPerView:'auto',
-			        freeMode: false, 
-                    freeModeSticky: true,
-                    slideToClickedSlide: true,
-			        spaceBetween:0,
-			        onInit: function (swiper3) { 
-						
-                    },
-
-                    onSlideChangeStart: function (swiper3) {
-
-                    },
-                    onSlideChangeEnd: function (swiper3) {
-                        //获取active的索引值
-                        var activeIndex=swiper3.activeIndex;
-                        self.activeRegionsIndex=activeIndex;
-						console.log(activeIndex);
-                     
-                    }
-			    });
+				        direction: 'vertical',
+				        centeredSlides:true,
+				        slidesPerView:'auto',
+				        freeMode: false, 
+	                    freeModeSticky: true,
+	                    slideToClickedSlide: true,
+				        spaceBetween:0,
+				        observer:true,//修改swiper自己或子元素时，自动初始化swiper
+    					observeParents:true,//修改swiper的父元素时，自动初始化swiper
+				        onInit: function (swiper3) { 
+							var activeIndex=swiper3.activeIndex;
+							 console.log("地区"+activeIndex);
+	                    },
+	
+	                    onSlideChangeStart: function (swiper3) {
+							
+	                    },
+	                    onSlideChangeEnd: function (swiper3) {
+	                        //获取active的索引值
+	                        var activeIndex=swiper3.activeIndex;
+	                        self.activeRegionsIndex=activeIndex;
+							console.log("地区"+activeIndex);
+	                     
+	                    }
+				    });
+				   
 				},
 				undoEvent:function(){
 					var self=this;
@@ -1251,6 +1269,28 @@
 					self.selectRegion=self.$el.querySelector(".swiper-container-3 .swiper-active").innerText;
 					self.activeArea=self.selectProvince+self.selectCity+self.selectRegion;
 					
+				},
+				solveOverflow:function(swiper){
+					var startScroll, touchStart, touchCurrent;
+					swiper.slides.on('touchstart', function (e) {
+					    startScroll = this.scrollTop;
+					    touchStart = e.targetTouches[0].pageY;
+					}, true);
+					swiper.slides.on('touchmove', function (e) {
+					    touchCurrent = e.targetTouches[0].pageY;
+					    var touchesDiff = touchCurrent - touchStart;
+					    var slide = this;
+					    var onlyScrolling =
+					            ( slide.scrollHeight > slide.offsetHeight ) && //allow only when slide is scrollable
+					            (
+					                ( touchesDiff < 0 && startScroll === 0 ) || //start from top edge to scroll bottom
+					                ( touchesDiff > 0 && startScroll === ( slide.scrollHeight - slide.offsetHeight ) ) || //start from bottom edge to scroll top
+					                ( startScroll > 0 && startScroll < ( slide.scrollHeight - slide.offsetHeight ) ) //start from the middle
+					            );
+					    if (onlyScrolling) {
+					        e.stopPropagation();
+					    }
+					}, true);
 				}
 			}
 		});
