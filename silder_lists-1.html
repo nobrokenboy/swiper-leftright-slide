@@ -41,8 +41,16 @@
 				float:right;
 				margin-right:20px;
 			}
-			.area-select-lists{
+			.panel{
 				position:fixed;
+				left:0;
+				top:0;
+				width:100%;
+				height:100%;
+				background-color:rgba(1,1,1,.3);
+			}
+			.area-select-lists{
+				position:absolute;
 				bottom:0;
 				left:0;
 				width:100%;
@@ -168,11 +176,6 @@
 				-webkit-animation-name:slideDown;
 				animation-name:slideDown;
 			}
-			/*.area-select-lists{
-				transform:translateY(100%);
-					-webkit-transform:translateY(100%);
-			}
-			*/
 			/*动画效果*/
 			@keyframes slideUp{
 				0%{
@@ -233,7 +236,8 @@
 					</li>
 				</ul>
 				<!--地区-->
-				<div class="area-select-lists animation" >
+				<div class="panel">
+					<div class="area-select-lists animation" >
 					<!--header-->
 					<div class="select-list area-header">
 						<div v-on:click="undoEvent()">取消</div>
@@ -264,6 +268,7 @@
 							<div class="active-area"></div>
 						</div>
 					</div>
+				</div>
 				</div>
 			</section>
 			<!--<footer></footer>-->

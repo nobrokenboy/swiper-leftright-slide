@@ -127,7 +127,7 @@
 		    	height:auto;
 		    }
 			.swiper-slide{
-				text-align: center;
+				/*text-align: center;
 		        font-size: 14px;
 		        background: #fff;
 		        display: -webkit-box;
@@ -143,7 +143,7 @@
 		        -webkit-align-items: center;
 		        align-items: center;
 				-webkit-transition:all .2s ease-in;
-				transition:all .2s ease-in;
+				transition:all .2s ease-in;*/
 			}
 			.swiper-active{
 				font-size:24px;
@@ -1226,7 +1226,7 @@
 		                         //改变区激活索引值
                         		self.activeRegionsIndex=0;
 		                    }
-					    });
+					   });
 					     
 				},
 				initSwiper3:function(){
@@ -1242,6 +1242,7 @@
 				        observer:true,//修改swiper自己或子元素时，自动初始化swiper
     					observeParents:true,//修改swiper的父元素时，自动初始化swiper
 				        onInit: function (swiper3) { 
+				        	console.log(swiper3);
 							var activeIndex=swiper3.activeIndex;
 							 console.log("地区"+activeIndex);
 	                    },
